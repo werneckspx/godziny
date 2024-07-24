@@ -27,7 +27,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Adicionar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="salvarAtividade()">Adicionar</button>
                 </div>
             </div>
         </div>
@@ -44,6 +44,23 @@
   const nome = ref('');
   const cargaHorariaComplementar = ref('');
   
+  function salvarAtividade(){
+
+    let atividades = JSON.parse(localStorage.getItem('atividades'))
+    console.log(atividades)
+
+    if (!Array.isArray(atividades)) {
+        atividades = [];
+    }
+
+    atividades.push({
+        sigla: this.sigla,
+        nome: this.nome,
+        cargaHorariaComplementar: this.cargaHorariaComplementar
+    });
+
+    localStorage.setItem('atividades', JSON.stringify(atividades));  
+  }
   </script>
   
   <!-- ---------------------------------------------------------------------- -->
