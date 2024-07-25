@@ -17,6 +17,7 @@
 <script setup>
 import {defineProps} from 'vue';
 
+// Recebe os valores via props enviados pelo compoente pai e exibe nos card.
 defineProps({
     sigla: {
     type: String,

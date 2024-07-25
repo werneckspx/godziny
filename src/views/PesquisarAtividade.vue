@@ -1,6 +1,7 @@
 <!-- ---------------------------------------------------------------------- -->
 <!-- HTML                                                                   -->
 <!-- ---------------------------------------------------------------------- -->
+<!-- Componente Principal -->
 <template>
   <div class="container py-4">
     <div class="row">
@@ -15,7 +16,7 @@
             @click="showPopup">
             Adicionar atividade
           </button>
-          <AdicionarAtividade />
+          <AdicionarAtividade @atividade-adicionada="atualizarAtividades" />
         </div>
       </div>
     </div>
@@ -37,9 +38,9 @@
         </div>
       </form>
 
-      <!--Listagem das atividades-->
-
-      <div class="row mt-3 ">
+      <!-- Listagem das atividades -->
+      <div class="row mt-3">
+        <!--Se não houver atividades (atividades.length === 0), exibe a mensagem "Não há atividades cadastradas!".-->
         <div class="col" v-if="atividades.length === 0">
           <div class="row text-center">
             <div class="col">
@@ -47,6 +48,7 @@
             </div>
           </div>
         </div>
+        <!--Caso contrário, mapeia cada atividade para um componente AtividadeComuns.-->
         <div class="col" v-else>
           <div class="row justify-content-center">
             <div class="col-3 p-3 mt" v-for="(atividade, index) in atividades" :key="index">
@@ -64,43 +66,51 @@
     </div>
   </div>
 </template>
-  
+
   <!-- ---------------------------------------------------------------------- -->
   <!-- JavaScript                                                             -->
   <!-- ---------------------------------------------------------------------- -->
-  <script setup>
-  import PaginacaoComuns from '@/components/PaginacaoComuns.vue';
-  import AdicionarAtividade from '@/components/AdicionarAtividade.vue';
-  import AtividadeComuns from '@/components/AtividadeComuns.vue';
-  import { onMounted, ref, onActivated} from 'vue';
-  import { Modal } from 'bootstrap';
-  
-  const myModal = ref(null);
-  const atividades = ref([]);  // Use ref para definir reatividade
+<script setup>
+import PaginacaoComuns from '@/components/PaginacaoComuns.vue';
+import AdicionarAtividade from '@/components/AdicionarAtividade.vue';
+import AtividadeComuns from '@/components/AtividadeComuns.vue';
+import { ref, onMounted } from 'vue';
+import { Modal } from 'bootstrap';
 
-  onMounted(() => {
-    myModal.value = new Modal(document.getElementById('atividadePopup'));
-  })
-  onActivated(() => {
-    // Carregar atividades do localStorage se disponíveis
-    const storedAtividades = localStorage.getItem('atividades');
-    if (storedAtividades) {
-      atividades.value = JSON.parse(storedAtividades);
-    }
-  })
-  const showPopup = () => {
-    if (myModal.value) {
-      myModal.value.show();
-    }
-  };
-  </script>
-  
-  <!-- ---------------------------------------------------------------------- -->
-  <!-- CSS                                                                    -->
-  <!-- ---------------------------------------------------------------------- -->
-  <style scoped>
+const myModal = ref(null);
+const atividades = ref([]);
+
+onMounted(() => {
+  //Inicializa o modal do Bootstrap quando o componente é montado.
+  myModal.value = new Modal(document.getElementById('atividadePopup'));
+
+  // Carregar atividades do localStorage se disponíveis  e atualiza a variável atividades.
+  const storedAtividades = localStorage.getItem('atividades');
+  if (storedAtividades) {
+    atividades.value = JSON.parse(storedAtividades);
+  }
+});
+
+//Exibe o modal quando o botão "Adicionar atividade" é clicado.
+const showPopup = () => {
+  if (myModal.value) {
+    myModal.value.show();
+  }
+};
+
+const atualizarAtividades = (novaAtividade) => {
+  //Adiciona a nova atividade ao array atividades.
+  atividades.value.push(novaAtividade);
+  //Atualiza o localStorage com as atividades atuais.
+  localStorage.setItem('atividades', JSON.stringify(atividades.value));
+};
+</script>
+
+<!-- ---------------------------------------------------------------------- -->
+<!-- CSS                                                                    -->
+<!-- ---------------------------------------------------------------------- -->
+<style scoped>
   * {
     color: #464545;
   }
-  </style>
-  
+</style>

@@ -2,73 +2,84 @@
 <!-- HTML                                                                   -->
 <!-- ---------------------------------------------------------------------- -->
 <template>
-    <!-- Modal -->
-    <div class="modal fade" id="atividadePopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container text-start">
-                        <div class="row">
-                            <div class="col">
-                                <label class="form-label">Sigla</label>
-                                <input type="text" class="form-control" v-model="sigla">
-                                <label class="form-label">Nome</label>
-                                <input type="text" class="form-control" v-model="nome">
-                                <label class="form-label">Carga Horária Complementar</label>
-                                <input type="text" class="form-control" v-model="cargaHorariaComplementar">
-                                {{ sigla }} | {{ nome }} |{{ cargaHorariaComplementar }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="salvarAtividade()">Adicionar</button>
-                </div>
-            </div>
+  <!--Estrutura básica de uma classe modal, dentro dela se encontra um formulário com seus respectivos campos.
+    Cada campo está ligado a uma variável do Vue usando v-model. Quando o formulário é submetido, ele chama a 
+    função adicionarAtividade definida no script. O modificador prevent no evento submit impede a recarga da página.-->
+
+    <div class="modal fade" id="atividadePopup" tabindex="-1" aria-labelledby="atividadePopupLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="atividadePopupLabel">Adicionar Atividade</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-start" >
+            <form @submit.prevent="adicionarAtividade">
+              <div class="mb-3">
+                <label for="sigla" class="form-label">Sigla</label>
+                <input type="text" id="sigla" v-model="sigla" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" v-model="nome" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="cargaHoraria" class="form-label">Carga Horária</label>
+                <input type="text" id="cargaHoraria" v-model="cargaHoraria" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Adicionar</button>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</template>
+  </template>
   
   <!-- ---------------------------------------------------------------------- -->
   <!-- JavaScript                                                             -->
   <!-- ---------------------------------------------------------------------- -->
   <script setup>
-  import {ref} from 'vue';
-    
+  import { ref, defineEmits } from 'vue';
+  import { Modal } from 'bootstrap';
+  
   const sigla = ref('');
   const nome = ref('');
-  const cargaHorariaComplementar = ref('');
+  const cargaHoraria = ref('');
+
+  /* defineEmits é usado para definir um evento customizado chamado atividade-adicionada. Este evento será.
+  emitido quando uma nova atividade for adicionada.*/
+  const emit = defineEmits(['atividade-adicionada']);
   
-  function salvarAtividade(){
 
-    let atividades = JSON.parse(localStorage.getItem('atividades'))
-    console.log(atividades)
-
-    if (!Array.isArray(atividades)) {
-        atividades = [];
-    }
-
-    atividades.push({
-        sigla: this.sigla,
-        nome: this.nome,
-        cargaHorariaComplementar: this.cargaHorariaComplementar
-    });
-
-    localStorage.setItem('atividades', JSON.stringify(atividades));  
-  }
+  const adicionarAtividade = () => {
+    //Cria um novo objeto novaAtividade usando os valores dos campos do formulário.
+    const novaAtividade = {
+      sigla: sigla.value,
+      nome: nome.value,
+      cargaHorariaComplementar: cargaHoraria.value
+    };
+  
+    // Emite o evento atividade-adicionada com o novo objeto.
+    emit('atividade-adicionada', novaAtividade);
+  
+    // Fechar o modal após adicionar.
+    const modalElement = document.getElementById('atividadePopup');
+    const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+    modal.hide();
+  
+    // Limpar campos.
+    sigla.value = '';
+    nome.value = '';
+    cargaHoraria.value = '';
+  };
   </script>
   
   <!-- ---------------------------------------------------------------------- -->
   <!-- CSS                                                                    -->
   <!-- ---------------------------------------------------------------------- -->
   <style scoped>
-  *{
-    color: #333;
+  * {
+    color: #464545;
   }
   </style>
   
