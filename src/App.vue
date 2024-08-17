@@ -3,7 +3,7 @@
 <!-- ---------------------------------------------------------------------- -->
 <template>
   <div class="wrapper">
-    <aside id="sidebar" ref="sidebar">
+    <aside id="sidebar" ref="sidebar" v-if="isActive">
       <div class="d-flex">
         <button class="toggle-btn" type="button" @click="toggleSidebar">
           <i class="lni lni-grid-alt"></i>
@@ -77,14 +77,15 @@
         </li>
       </ul>
       <div class="sidebar-footer">
-        <a href="#" class="sidebar-link">
+        <RouterLink to="/login" class="sidebar-link">
           <i class="lni lni-exit"></i>
           <span>Logout</span>
-        </a>
+        </RouterLink>
       </div>
     </aside>
+    
     <div class="main p-3">
-      <RouterView />
+      <RouterView @update-is-active = "handleIsActiveUpdate"/>
     </div>
   </div>
 </template>
@@ -92,18 +93,26 @@
 <!-- ---------------------------------------------------------------------- -->
 <!-- JavaScript                                                             -->
 <!-- ---------------------------------------------------------------------- -->
-  <script setup>
-  import { RouterLink, RouterView } from 'vue-router';
-  import { ref } from 'vue';
-  
-  const sidebar = ref(null);
-  
-  function toggleSidebar() {
-    if (sidebar.value) {
-      sidebar.value.classList.toggle('expand');
-    }
+<script setup>
+import { ref } from 'vue';
+import { RouterLink, RouterView } from 'vue-router';
+
+const isActive = ref(false);
+const sidebar = ref(null);
+
+// Função para alternar a barra lateral
+function toggleSidebar() {
+  if (sidebar.value) {
+    sidebar.value.classList.toggle('expand');
   }
-  </script>
+}
+
+// Função para atualizar o estado com base no evento emitido pelo filho
+function handleIsActiveUpdate(newValue) {
+  isActive.value = newValue;
+}
+</script>
+
   
 <!-- ---------------------------------------------------------------------- -->
 <!-- CSS                                                                    -->

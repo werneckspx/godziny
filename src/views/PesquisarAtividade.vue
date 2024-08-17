@@ -50,7 +50,7 @@
         </div>
         <!--Caso contrário, mapeia cada atividade para um componente AtividadeComuns.-->
         <div class="col" v-else>
-          <div class="row justify-content-center">
+          <div class="row">
             <div class="col-3 p-3 mt" v-for="(atividade, index) in atividades" :key="index">
               <AtividadeComuns v-bind="atividade"/>
             </div>
