@@ -77,15 +77,15 @@
         </li>
       </ul>
       <div class="sidebar-footer">
-        <RouterLink to="/login" class="sidebar-link">
+        <RouterLink to="/login" class="sidebar-link" @click="trocaIsActive">
           <i class="lni lni-exit"></i>
           <span>Logout</span>
         </RouterLink>
       </div>
     </aside>
-    
+
     <div class="main p-3">
-      <RouterView @update-is-active = "handleIsActiveUpdate"/>
+      <RouterView @update-is-active="handleIsActiveUpdate" />
     </div>
   </div>
 </template>
@@ -95,11 +95,11 @@
 <!-- ---------------------------------------------------------------------- -->
 <script setup>
 import { ref } from 'vue';
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterLink, RouterView,useRouter } from 'vue-router';
 
 const isActive = ref(false);
 const sidebar = ref(null);
-
+const router = useRouter();
 // Função para alternar a barra lateral
 function toggleSidebar() {
   if (sidebar.value) {
@@ -110,6 +110,13 @@ function toggleSidebar() {
 // Função para atualizar o estado com base no evento emitido pelo filho
 function handleIsActiveUpdate(newValue) {
   isActive.value = newValue;
+}
+
+//função para invertelar a logica isActive
+
+function trocaIsActive(){
+  isActive.value = !isActive.value
+  router.push({ name: 'login' });
 }
 </script>
 
