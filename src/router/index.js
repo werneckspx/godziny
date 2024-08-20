@@ -25,7 +25,7 @@ const routes = [
   {
     path: '/categorias',
     name: 'categorias',
-    component: () => import('../views/CaterogirasView.vue')
+    component: () => import('../views/CategoriasView.vue')
   },
   {
     path: '/usuarios',

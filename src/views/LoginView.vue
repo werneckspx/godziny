@@ -1,9 +1,20 @@
 <template>
-    <div class="d-flex align-items-center py-4  h-100">
+    <div class="d-flex align-items-center py-4  h-100 ">
       <main class="w-100 m-auto form-container">
         <form>
-          <img src="" class="mb-4" height="57" width="72" alt="Logo"/>
-          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+          <div class="row mb-4">
+            <div class="col-12 d-flex justify-content-center">
+              <img src="../assets/godfinal.png" class="mb-4" height="80" width="110" alt="Logo"/>
+              
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+              <label>Godziny APP</label>
+            </div>
+          </div>
+          
+          <div class="row h-100 p-3 bg-light border rounded-3">
+            <div class="col">
+              <h1 class="h4 mb-3 fw-normal">Please sign in</h1>
           <div class="form-floating mb-3">
             <input type="email" class="form-control" id="floatingInput" placeholder="your-email@gmail.com"/>
             <label for="floatingInput">Email address</label>
@@ -19,6 +30,9 @@
           <RouterLink to="/perfil">
             <button type="button" class="btn btn-primary w-100 py-2" @click="toggleActive">login</button>
           </RouterLink>
+            </div>
+          </div>
+         
             
         </form>
       </main>
@@ -41,7 +55,7 @@
   
   <style scoped>
   .form-container {
-    max-width: 350px;
+    max-width: 370px;
     padding: 1rem;
   }
   

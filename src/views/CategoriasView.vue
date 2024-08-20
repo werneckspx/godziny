@@ -32,7 +32,11 @@
             <input type="text" class="form-control">
           </div>
         </div>
-        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Adicionar</button>
+        <div class="row">
+          <div class="col d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+          </div>
+        </div>
       </div>
 
     </div>

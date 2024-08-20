@@ -5,7 +5,7 @@
     <div class="container py-4">
         <div class="row">
             <div class="col">
-                <h2 class="text-secondary">Nova Categoria</h2>
+                <h2 class="text-secondary">Novo usuário</h2>
             </div>
             <div class="h-100 p-5 bg-light border rounded-3">
                 <div class="mb-3">
@@ -42,10 +42,15 @@
                         <option selected disabled>Selecionar</option>
                         <option value="1">Computação</option>
                         <option value="2">Mecatrônica</option>
-                        <!--esse select depende se o usuário for "aluno", as opções dependem do banco de dados que foi cadastrado os cursos-->>
+                        <!--esse select depende se o usuário for "aluno", as opções dependem do banco de dados que 
+                        foi cadastrado os cursos ////Atenção! se for professor/ adm tem que colocar o departamento -->>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Adicionar</button>
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                    </div>
+                </div>
             </div>
 
         </div>

@@ -5,7 +5,7 @@
     <div class="container py-4">
         <div class="row">
             <div class="col">
-                <h2 class="text-secondary">Nova Categoria</h2>
+                <h2 class="text-secondary">Novo curso</h2>
             </div>
             <div class="h-100 p-5 bg-light border rounded-3">
                 <div class="mb-3">
@@ -28,7 +28,11 @@
                         <input type="text" class="form-control">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Adicionar</button>
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                    </div>
+                </div>
             </div>
 
         </div>
