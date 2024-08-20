@@ -48,7 +48,7 @@
                 </div>
                 <div class="row">
                     <div class="col d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                        <button type="submit" class="btn btn-primary text-white">Adicionar</button>
                     </div>
                 </div>
             </div>
