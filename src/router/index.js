@@ -21,6 +21,21 @@ const routes = [
   path: '/atividade',
     name: 'atividade',
     component: () => import('../views/PesquisarAtividade.vue')
+  },
+  {
+    path: '/categorias',
+    name: 'categorias',
+    component: () => import('../views/CaterogirasView.vue')
+  },
+  {
+    path: '/usuarios',
+    name: 'usuarios',
+    component: () => import('../views/UsuariosView.vue')
+  },
+  {
+    path: '/cursos',
+    name: 'cursos',
+    component: () => import('../views/CursosView.vue')
   }
 
 ]
