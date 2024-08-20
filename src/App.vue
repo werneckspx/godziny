@@ -35,14 +35,23 @@
           <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth"
             aria-expanded="false" aria-controls="auth">
             <i class="lni lni-protection"></i>
-            <span>Auth</span>
+            <span>Cadastros</span>
           </a>
           <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
             <li class="sidebar-item">
-              <a href="#" class="sidebar-link">Login</a>
+              <RouterLink to = "/categorias">
+                <a class="sidebar-link">Categorias</a>
+              </RouterLink>
             </li>
             <li class="sidebar-item">
-              <a href="#" class="sidebar-link">Register</a>
+              <RouterLink to = "/usuarios">
+                <a class="sidebar-link">Usuários</a>
+              </RouterLink>
+            </li>
+            <li class="sidebar-item">
+              <RouterLink to="/cursos">
+                <a class="sidebar-link">Cursos</a>
+              </RouterLink>
             </li>
           </ul>
         </li>
