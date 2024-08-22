@@ -14,24 +14,24 @@
       </div>
       <ul class="sidebar-nav">
         <li class="sidebar-item">
-          <RouterLink to="/perfil" class="sidebar-link">
+          <RouterLink to="/perfil" class="sidebar-link" active-class="active-link">
             <i class="lni lni-user"></i>
             <span>Perfil</span>
           </RouterLink>
         </li>
         <li class="sidebar-item">
-          <RouterLink to="/dashboard" class="sidebar-link">
+          <RouterLink to="/dashboard" class="sidebar-link" active-class="active-link">
             <i class="lni lni-stats-up"></i>
             <span>Dashboard</span>
           </RouterLink>
         </li>
         <li class="sidebar-item">
-          <RouterLink to="/atividade" class="sidebar-link">
+          <RouterLink to="/atividade" class="sidebar-link" active-class="active-link">
             <i class="lni lni-remove-file"></i>
             <span>Atividade</span>
           </RouterLink>
         </li>
-        <li class="sidebar-item">
+        <li  :class="['sidebar-item', { 'active-parent': isActiveParent }]">
           <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth"
             aria-expanded="false" aria-controls="auth">
             <i class="lni lni-protection"></i>
@@ -39,19 +39,13 @@
           </a>
           <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
             <li class="sidebar-item">
-              <RouterLink to = "/categorias">
-                <a class="sidebar-link">Categorias</a>
-              </RouterLink>
+                <RouterLink to="/categorias" class="sidebar-link" active-class="active-link">Categorias</RouterLink>
             </li>
             <li class="sidebar-item">
-              <RouterLink to = "/usuarios">
-                <a class="sidebar-link">Usuários</a>
-              </RouterLink>
+              <RouterLink to="/usuarios" class="sidebar-link" active-class="active-link">Usuários</RouterLink>
             </li>
             <li class="sidebar-item">
-              <RouterLink to="/cursos">
-                <a class="sidebar-link">Cursos</a>
-              </RouterLink>
+              <RouterLink to="/cursos" class="sidebar-link" active-class="active-link">Cursos</RouterLink>
             </li>
           </ul>
         </li>
@@ -86,7 +80,7 @@
         </li>
       </ul>
       <div class="sidebar-footer">
-        <RouterLink to="/login" class="sidebar-link" @click="trocaIsActive">
+        <RouterLink to="/login" class="sidebar-link" active-class="active-link" @click="trocaIsActive">
           <i class="lni lni-exit"></i>
           <span>Logout</span>
         </RouterLink>
@@ -105,6 +99,15 @@
 <script setup>
 import { ref } from 'vue';
 import { RouterLink, RouterView,useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
+
+const route = useRoute();
+
+const isActiveParent = computed(() => {
+  const activePaths = ['/categorias', '/usuarios', '/cursos'];
+  return activePaths.includes(route.path);
+});
 
 const isActive = ref(false);
 const sidebar = ref(null);
@@ -127,6 +130,8 @@ function trocaIsActive(){
   isActive.value = !isActive.value
   router.push({ name: 'login' });
 }
+
+
 </script>
 
   
@@ -240,6 +245,17 @@ function trocaIsActive(){
   .sidebar-item {
     position: relative;
   }
+
+  .active-link {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-left: 3px solid #3b7ddd;
+  }
+
+  .active-parent {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-left: 3px solid #3b7ddd;
+  }
+
   
   #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
     position: absolute;
